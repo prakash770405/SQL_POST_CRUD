@@ -1,6 +1,7 @@
 const express = require("express");
 const { faker } = require('@faker-js/faker');
 const mysql = require("mysql2");
+var methodOverride = require('method-override');
 
 const app = express();
 
@@ -8,6 +9,7 @@ let port = 8080;
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'))
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -15,8 +17,6 @@ const connection = mysql.createConnection({
     database: 'Mysql2',
     password: 'prakash@123'
 });
-
-
 
 function getrandomuser() {
 
@@ -30,43 +30,48 @@ function getrandomuser() {
 }
 
 
-
-
 app.get("/", (req, res) => {
     connection.query('SELECT * from randomdata', (error, results) => {
         if (error) throw error;
-        console.log('The solution is: ', results);
         res.render("home.ejs", { results });
     });
 })
 
-app.get("/post/:Id", (req, res) => {
+app.get("/post/edit/:Id", (req, res) => {
     let { Id } = req.params;
-    console.log(Id);
     connection.query(`SELECT * from randomdata WHERE Id='${Id}'`, (error, results) => {
         if (error) throw error;
-        console.log('The solution is: ', results);
         let data = results[0];
         res.render("editpost.ejs", { data });
     });
 })
 
-app.patch("/post/:Id", (req, res) => {
+app.patch("/post/edit/:Id", (req, res) => {
     let { Id } = req.params;
-    let {password}=req.body;
-    console.log(password); 
+    let {password: newpass }=req.body;
+    console.log(newpass); 
     console.log(Id);
     connection.query(`SELECT * from randomdata WHERE Id='${Id}'`, (error, results) => {
         if (error) throw error;
-        // connection.query(`UPDATE randomdata SET password='${newpass}' WHERE Id='${Id}'`, (error, results) => {
-        //     if (error) throw error;
-        //     console.log('The solution is: ', results);
-        //     let data = results[0];
-        //     res.render("editpost.ejs", { data });
-        // });
+        connection.query(`UPDATE randomdata SET password='${newpass}' WHERE Id='${Id}'`, (error, results) => {
+            if (error) throw error;
+            console.log('The solution is: ', results);
+            res.redirect("/");
+        });
 
     });
 })
+
+app.delete("/post/delete/:Id", (req, res) => {
+    let { Id } = req.params;
+    console.log(Id);
+    connection.query(`DELETE from randomdata WHERE Id='${Id}'`, (error, results) => {
+        if (error) throw error;
+            console.log('The solution is: ', results);
+            res.redirect("/");
+    });
+})
+
 
 
 
@@ -86,7 +91,7 @@ app.get("/input", (req, res) => {
 
         console.log(results);
 
-        res.send("5 random users inserted successfully");
+        res.send("random users inserted successfully");
     });
 
 })

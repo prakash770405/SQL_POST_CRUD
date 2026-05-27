@@ -92,19 +92,16 @@
     <div class="container">
 
         <h1 class="title">SQL Data</h1>
-        <h2 class="count">Total Users: <%= results.length %></h2>
+        <h2 class="count">Total Users: <%= results.length %> </h2>
+        <h2 class="count"><a href="http://locahost:8080/insert/data">Insert New Data</a></h2>
 
         <div class="card-container">
 
-            <% for(let i = 0; i < results.length; i++) { %>
+            <% for(let i=0; i < results.length; i++) { %>
 
                 <div class="card">
 
-                    <img 
-                        src="<%= results[i].images %>" 
-                        alt="photo"
-                        class="profile-img"
-                    >
+                    <img src="<%= results[i].images %>" alt="photo" class="profile-img">
 
                     <p class="info id">
                         <span class="label">ID:</span>
@@ -121,11 +118,15 @@
                         <%= results[i].Email %>
                     </p>
 
-                    <a href="http://localhost:8080/post/<%=results[i].Id%>">Edit</a>
+                    <a href="http://localhost:8080/post/edit/<%=results[i].Id%>">Edit</a>
+                    <form style="display: inline-block; margin-left: 10px;"
+                        action="http://localhost:8080/post/delete/<%=results[i].Id%>?_method=DELETE" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
 
                 </div>
 
-            <% } %>
+                <% } %>
 
         </div>
 

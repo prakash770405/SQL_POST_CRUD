@@ -1,36 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Details</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 35px;
+            width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .info {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #444;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #222;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .password-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: #3498db;
+        }
+
+        #butt {
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            background: #555;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #butt:hover {
+            background: #333;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #3498db;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Edit your details:-</h1>
-    <p>  <%=data.Name %> </p>
-    <p>  <%=data.Email %> </p>
-    <form action="http://localhost:8080/post/<%=data.Id%>?_method=PATCH" method="post">
 
-       <label for="pass">Password</label>
-        <input id="pass" name="password" type="password" value="<%=data.password %>">
-        <button type="button" id="butt" onclick="showdata()">show</button>
-        <br>
-        <button type="submit">Submit</button>
-    </form>
+    <div class="container">
+
+        <h1>Edit Your Details</h1>
+
+        <p class="info">
+            <span class="label">Name:</span>
+            <%= data.Name %>
+        </p>
+
+        <p class="info">
+            <span class="label">Email:</span>
+            <%= data.Email %>
+        </p>
+
+        <form action="http://localhost:8080/post/edit/<%=data.Id%>?_method=PATCH" method="post">
+
+            <label for="pass">Password</label>
+
+            <div class="password-box">
+
+                <input 
+                    id="pass" 
+                    name="password" 
+                    type="password"
+                    value="<%= data.password %>"
+                >
+
+                <button 
+                    type="button" 
+                    id="butt" 
+                    onclick="showdata()"
+                >
+                    show
+                </button>
+
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Submit
+            </button>
+
+        </form>
+
+    </div>
+
     <script>
-        let input=document.querySelector("#pass");
-        let butt=document.querySelector("#butt");
 
-        function showdata(){
-            if(butt.innerHTML=="show"){
-                butt.innerHTML="hide"
-                input.type="text";
-            }
-            else{
-                butt.innerHTML="show";
-                input.type="password";
+        let input = document.querySelector("#pass");
+        let butt = document.querySelector("#butt");
+
+        function showdata() {
+
+            if (butt.innerText == "show") {
+
+                butt.innerText = "hide";
+                input.type = "text";
+
+            } else {
+
+                butt.innerText = "show";
+                input.type = "password";
             }
         }
+
     </script>
+
 </body>
+
 </html>
