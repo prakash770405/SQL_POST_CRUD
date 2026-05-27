@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit your details:-</h1>
+    <p>  <%=data.Name %> </p>
+    <p>  <%=data.Email %> </p>
+    <form action="http://localhost:8080/post/<%=data.Id%>?_method=PATCH" method="post">
+
+       <label for="pass">Password</label>
+        <input id="pass" name="password" type="password" value="<%=data.password %>">
+        <button type="button" id="butt" onclick="showdata()">show</button>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        let input=document.querySelector("#pass");
+        let butt=document.querySelector("#butt");
+
+        function showdata(){
+            if(butt.innerHTML=="show"){
+                butt.innerHTML="hide"
+                input.type="text";
+            }
+            else{
+                butt.innerHTML="show";
+                input.type="password";
+            }
+        }
+    </script>
+</body>
+</html>
