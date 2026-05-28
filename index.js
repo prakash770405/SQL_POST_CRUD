@@ -75,12 +75,12 @@ app.delete("/post/delete/:Id", (req, res) => {
 
 
 
-app.get("/input", (req, res) => {
+app.post("/input/user", (req, res) => {
 
     let q = 'INSERT INTO randomdata (Id, Name, Email, images, password) values ?';
     let users = [];
-
-    for (let i = 0; i < 30; i++) {
+    let {data: newuser}=req.body;
+    for (let i = 0; i < newuser; i++) {
         users.push(getrandomuser());
     }
     connection.query(q, [users], (error, results) => {
@@ -91,7 +91,7 @@ app.get("/input", (req, res) => {
 
         console.log(results);
 
-        res.send("random users inserted successfully");
+        res.redirect("/");
     });
 
 })
