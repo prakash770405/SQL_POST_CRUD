@@ -92,14 +92,23 @@
     <div class="container">
 
         <h1 class="title">SQL Data</h1>
-        <h2 class="count">Total Users: <%= results.length %> </h2>
-        <button type="button" id="butt1" onclick="showform()"> Insert bulk data</button>
-        
-        <form id="p1"  style="display: none;" action="http://localhost:8080/input/user" method="post" enctype="application/x-www-form-urlencoded">
-            <input type="number" name="data" placeholder="enter no. of user">
-            <br>
-            <button type="submit">create</button>
-        </form>
+        <h2 class="count">Total Users: <%= results.length %>
+        </h2>
+
+
+        <div style="text-align: center;">
+
+            <button type="button" style="text-align: center; margin-bottom: 30px;" id="butt1" onclick="showform()">
+                Insert bulk data</button>
+
+            <form id="p1" style="display: none;  margin-bottom: 20px;" action="http://localhost:8080/input/user"
+                method="post" enctype="application/x-www-form-urlencoded">
+                <input type="number" name="data" placeholder="enter no. of user">
+                <br>
+                <button type="submit">create</button>
+            </form>
+
+        </div>
 
         <div class="card-container">
 
@@ -124,7 +133,8 @@
                         <%= results[i].Email %>
                     </p>
 
-                    <a href="http://localhost:8080/post/edit/<%=results[i].Id%>">Edit</a>
+                    <button><a style="text-decoration: none; color: black;"
+                            href="http://localhost:8080/post/edit/<%=results[i].Id%>">Edit</a></button>
                     <form style="display: inline-block; margin-left: 10px;"
                         action="http://localhost:8080/post/delete/<%=results[i].Id%>?_method=DELETE" method="post">
                         <button type="submit">Delete</button>
@@ -138,16 +148,18 @@
 
     </div>
     <script>
-        let button=document.querySelector("#butt1");
-        let form=document.querySelector("#p1");
+        let button = document.querySelector("#butt1");
+        let form = document.querySelector("#p1");
 
-       function showform(){
-        if(form.style.display==="none"){
-            form.style.display="block";
-        }
-        else{
-            form.style.display="none";
-        }
+        function showform() {
+            if (form.style.display === "none") {
+                form.style.display = "block";
+                button.innerText = "Hide Form";
+            }
+            else {
+                form.style.display = "none";
+                button.innerText = "Insert bulk data";
+            }
         }
 
     </script>
