@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+        }
+        #outer {
+
+            height: 70vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #inner {
+            padding: 20px;
+            height: 50vh;
+            width: 50vw;
+            border-radius: 40px;
+            background-color: antiquewhite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        input {
+            width: 40vw;
+            margin-bottom: 5px;
+
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <br><br><br>
+    <h1 style="text-align: center;"> Enter New User Details</h1>
+    <div id="outer">
+
+        <div id="inner">
+
+            <form action="">
+                <label for="name">Name</label><br>
+                <input type="text" id="name" name="Name" placeholder="Enter name">
+                <br>
+                <label for="email">Email</label><br>
+                <input type="email" id="email" name="Email" placeholder="enter email"><br>
+                <label for="image">Image</label><br>
+                <input type="url" id="images" name="images" placeholder="enter photo url">
+                <br>
+                <label for="password">Password</label><br>
+                <input type="password" id="password" name="password" id="pass" placeholder="enter password">
+                <button type="button" id="butt" onclick="revealpass()">show</button>
+                <br>
+                <br>
+                <button type="submit">submit</button>
+            </form>
+
+        </div>
+    </div>
+    <script>
+        let button = document.querySelector("#butt");
+        let password = document.querySelector("#pass");
+
+        function revealpass() {
+            if (button.innerText == "show") {
+                password.type = "text";
+                button.innerText = "hide";
+            }
+            else {
+                password.type = "password";
+                button.innerText = "show";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

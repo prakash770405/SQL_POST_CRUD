@@ -96,7 +96,9 @@ app.post("/input/user", (req, res) => {
 
 })
 
-
+app.get("/manual/entry", (req, res) => {
+        res.render("Newuser.ejs");
+})
 
 
 
